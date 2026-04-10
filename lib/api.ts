@@ -17,7 +17,7 @@ async function apiGet<T>(path: string): Promise<T> {
 
   const headers: HeadersInit = { 'Content-Type': 'application/json' };
   if (apiKey) {
-    headers['Authorization'] = `Bearer ${apiKey}`;
+    headers.Authorization = `Bearer ${apiKey}`;
   }
 
   const response = await fetch(`${baseUrl}${path}`, { headers });
