@@ -1,0 +1,287 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        /* ai-elements Shimmer component aliases */
+        --color-background: hsl(var(--background));
+        --color-muted-foreground: hsl(var(--muted-foreground));
+        --foreground: 48 20% 20%;
+        --chat-background: 320 45% 94%;
+        --card: 0 0% 100%;
+        --card-foreground: 60 2% 10%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 51 19% 13%;
+        --primary: 320 47% 47%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 210 20% 98%;
+        --secondary-foreground: 51 8% 30%;
+        --muted: 210 20% 98%;
+        --muted-foreground: 220 9% 46%;
+        --accent: 318 50% 93%;
+        --accent-foreground: 51 19% 13%;
+        --destructive: 60 2% 10%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 220 14% 96%;
+        --input: 218 11% 65%;
+        --ring: 320 47% 47%;
+        --chart-1: 320 47% 47%;
+        --chart-2: 201 33% 26%;
+        --chart-3: 80 46% 25%;
+        --chart-4: 294 94% 20%;
+        --chart-5: 28 51% 28%;
+        --radius: 0.75rem;
+        --sidebar-background: 30 33% 97%;
+        --sidebar-foreground: 60 3% 23%;
+        --sidebar-primary: 320 47% 47%;
+        --sidebar-primary-foreground: 30 33% 97%;
+        --sidebar-accent: 34 17% 90%;
+        --sidebar-accent-foreground: 0 0% 20%;
+        --sidebar-border: 0 0% 92%;
+        --sidebar-ring: 0 0% 71%;
+    }
+    .dark {
+        --background: 60 6% 10%;
+        /* ai-elements Shimmer component aliases */
+        --color-background: hsl(var(--background));
+        --color-muted-foreground: hsl(var(--muted-foreground));
+        --foreground: 46 10% 74%;
+        --chat-background: 45 7% 11%;
+        --card: 60 3% 15%;
+        --card-foreground: 48 45% 97%;
+        --primary: 320 47% 47%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 48 45% 97%;
+        --secondary-foreground: 60 2% 18%;
+        --muted: 60 4% 10%;
+        --muted-foreground: 51 10% 69%;
+        --accent: 45 7% 11%;
+        --accent-foreground: 51 35% 95%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 60 5% 23%;
+        --input: 218 11% 65%;
+        --ring: 320 47% 47%;
+        --chart-1: 320 47% 47%;
+        --chart-2: 201 33% 26%;
+        --chart-3: 80 46% 25%;
+        --chart-4: 294 94% 20%;
+        --chart-5: 28 51% 28%;
+        --sidebar-background: 30 3% 12%;
+        --sidebar-foreground: 46 10% 74%;
+        --sidebar-primary: 320 47% 47%;
+        --sidebar-primary-foreground: 0 0% 98%;
+        --sidebar-accent: 60 6% 6%;
+        --sidebar-accent-foreground: 46 10% 74%;
+        --sidebar-border: 0 0% 92%;
+        --sidebar-ring: 320 47% 47%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+.skeleton {
+    * {
+        pointer-events: none !important;
+    }
+
+    *[class^="text-"] {
+        color: transparent;
+        @apply rounded-md bg-foreground/20 select-none animate-pulse;
+    }
+
+    .skeleton-bg {
+        @apply bg-foreground/10;
+    }
+
+    .skeleton-div {
+        @apply bg-foreground/20 animate-pulse;
+    }
+}
+
+/* Override skeleton styles for status indicators */
+.status-indicator {
+    background-color: inherit !important;
+}
+
+/* Allow Tailwind background classes to work on status indicators */
+.status-indicator.bg-red-500 {
+    background-color: #ef4444 !important;
+}
+
+.status-indicator.bg-green-500 {
+    background-color: #22c55e !important;
+}
+
+.status-indicator.bg-green-400 {
+    background-color: #4ade80 !important;
+}
+
+.status-indicator.bg-green\/90 {
+    background-color: rgba(34, 197, 94, 0.9) !important;
+}
+
+.status-indicator.bg-gray-400 {
+    background-color: #9ca3af !important;
+}
+
+/* Slim, subtle scrollbars for Windows/non-Mac browsers */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.ProseMirror {
+    outline: none;
+}
+
+.cm-editor,
+.cm-gutters {
+    @apply bg-background dark:bg-zinc-800 outline-none selection:bg-zinc-900 !important;
+}
+
+.ͼo.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground,
+.ͼo.cm-selectionBackground,
+.ͼo.cm-content::selection {
+    @apply bg-zinc-200 dark:bg-zinc-900 !important;
+}
+
+.cm-activeLine,
+.cm-activeLineGutter {
+    @apply bg-transparent !important;
+}
+
+.cm-activeLine {
+    @apply rounded-r-sm !important;
+}
+
+.cm-lineNumbers {
+    @apply min-w-7;
+}
+
+.cm-foldGutter {
+    @apply min-w-3;
+}
+
+.cm-lineNumbers .cm-activeLineGutter {
+    @apply rounded-l-sm !important;
+}
+
+.suggestion-highlight {
+    @apply bg-blue-200 hover:bg-blue-300 dark:hover:bg-blue-400/50 dark:text-blue-50 dark:bg-blue-500/40;
+}
+
+/* Streamdown list indent and bullet styling */
+[data-streamdown="unordered-list"],
+[data-streamdown="ordered-list"] {
+    padding-left: 1.25rem;
+}
+
+[data-streamdown="unordered-list"] {
+    list-style-type: disc;
+}
+
+[data-streamdown="ordered-list"] {
+    list-style-type: decimal;
+}
+
+/* Assistant message bubble styling */
+.assistant-message-bubble {
+    @apply text-black dark:text-white text-xs leading-[18px] text-left p-0 bg-transparent border-0 outline-none font-source-serif;
+}
+
+.assistant-message-reasoning {
+    @apply text-purple-700 dark:text-purple-300;
+}
+
+.assistant-message-reasoning-border {
+    @apply border-purple-200 dark:border-purple-700;
+}
+
+/* Browser fullscreen background override */
+.browser-fullscreen-bg {
+    background-color: #000000 !important;
+}
+
+/* Browser fullscreen white text - ensures text is white on black background */
+.browser-fullscreen-text {
+    color: #ffffff !important;
+}
+
+/* Regular browser canvas cursor */
+.browser-canvas-regular {
+    cursor: not-allowed !important;
+}
+
+/* Switch component styling */
+.switch-root {
+    @apply inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.switch-root[data-state="checked"] {
+    @apply bg-primary;
+}
+
+.switch-root[data-state="unchecked"] {
+    @apply bg-muted;
+}
+
+.switch-thumb {
+    @apply pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform;
+}
+
+.switch-thumb[data-state="checked"] {
+    @apply translate-x-5;
+}
+
+.switch-thumb[data-state="unchecked"] {
+    @apply translate-x-0;
+}

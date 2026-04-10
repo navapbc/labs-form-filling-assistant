@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1759197918420,
+      "tag": "0000_tense_gladiator",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1759203324843,
+      "tag": "0001_fluffy_dragon_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1759205000000,
+      "tag": "0002_cleanup_orphaned_chats",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1759204585521,
+      "tag": "0002_serious_mojo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1759204692210,
+      "tag": "0003_spooky_harrier",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1761006937695,
+      "tag": "0004_common_dragon_man",
+      "breakpoints": true
+    }
+  ]
+}

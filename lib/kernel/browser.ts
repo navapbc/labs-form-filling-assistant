@@ -1,0 +1,198 @@
+import Kernel from '@onkernel/sdk';
+import { BrowserManager } from 'agent-browser/dist/browser.js';
+
+const kernel = new Kernel();
+
+// =============================================================================
+// Types
+// =============================================================================
+
+export interface BrowserSession {
+  kernelSessionId: string;
+  liveViewUrl: string;
+  cdpWsUrl: string;
+  userId: string;
+  browserManager: BrowserManager;
+  replayId?: string;
+}
+
+// =============================================================================
+// In-memory session cache
+//
+// Single source of truth for session→browser mapping within this process.
+// Kernel.sh is the ultimate source of truth for browser lifecycle/timeout.
+// No Redis needed — this is a single Cloud Run instance talking to Kernel.
+// =============================================================================
+
+const sessions = new Map<string, BrowserSession>();
+const pendingCreations = new Map<string, Promise<BrowserSession>>();
+
+function cacheKey(userId: string, sessionId: string): string {
+  return `${userId}:${sessionId}`;
+}
+
+// =============================================================================
+// Core operations
+// =============================================================================
+
+/**
+ * Get or create a browser session for a user's chat.
+ *
+ * Uses in-memory cache to dedup. If a create is already in-flight for this
+ * session, awaits it instead of creating a duplicate. Kernel handles all
+ * timeout/lifecycle logic.
+ */
+export async function getOrCreateBrowser(
+  sessionId: string,
+  userId: string,
+  options?: { isMobile?: boolean },
+): Promise<BrowserSession> {
+  if (!userId) {
+    throw new Error('[Kernel] userId is required for browser session isolation');
+  }
+
+  const key = cacheKey(userId, sessionId);
+
+  // 1. Check in-memory cache
+  const cached = sessions.get(key);
+  if (cached) {
+    return cached;
+  }
+
+  // 2. If a create is already in-flight, await it
+  const pending = pendingCreations.get(key);
+  if (pending) {
+    return pending;
+  }
+
+  // 3. Create new browser via Kernel SDK
+  const createPromise = (async () => {
+    try {
+      const viewport = options?.isMobile
+        ? { width: 1024, height: 768 }
+        : { width: 1280, height: 800 };
+
+      const browser = (await kernel.browsers.create({
+        viewport,
+        timeout_seconds: 600,
+        kiosk_mode: true,
+        stealth: true,
+      })) as {
+        session_id: string;
+        cdp_ws_url: string;
+        browser_live_view_url: string;
+      };
+
+      const manager = new BrowserManager();
+      await manager.launch({
+        id: 'launch',
+        action: 'launch',
+        cdpUrl: browser.cdp_ws_url,
+      });
+
+      // Start session replay recording
+      let replayId: string | undefined;
+      try {
+        const replay = await kernel.browsers.replays.start(browser.session_id);
+        replayId = replay.replay_id;
+        } catch (err) {
+        console.error('[Kernel] Failed to start replay recording:', err);
+      }
+
+      const session: BrowserSession = {
+        kernelSessionId: browser.session_id,
+        liveViewUrl: browser.browser_live_view_url,
+        cdpWsUrl: browser.cdp_ws_url,
+        userId,
+        browserManager: manager,
+        replayId,
+      };
+
+      sessions.set(key, session);
+
+      return session;
+    } finally {
+      pendingCreations.delete(key);
+    }
+  })();
+
+  pendingCreations.set(key, createPromise);
+  return createPromise;
+}
+
+/**
+ * Get an existing browser session from cache.
+ * Also awaits any in-flight creation so callers can poll for a browser
+ * that another code path (e.g. the tool) is currently creating.
+ * Returns null if no session exists and none is being created.
+ */
+export async function getBrowser(
+  sessionId: string,
+  userId: string,
+): Promise<BrowserSession | null> {
+  if (!userId) {
+    throw new Error('[Kernel] userId is required for browser session access');
+  }
+
+  const key = cacheKey(userId, sessionId);
+
+  const cached = sessions.get(key);
+  if (cached) return cached;
+
+  // Await in-flight creation from another code path (e.g. tool execution)
+  const pending = pendingCreations.get(key);
+  if (pending) {
+    return pending;
+  }
+
+  return null;
+}
+
+/**
+ * Delete a browser session.
+ * Removes from cache, then tells Kernel to destroy the browser instance.
+ */
+export async function deleteBrowser(
+  sessionId: string,
+  userId: string,
+): Promise<void> {
+  const key = cacheKey(userId, sessionId);
+  const session = sessions.get(key);
+
+  if (!session) return;
+
+  // Remove from cache first
+  sessions.delete(key);
+
+  // Stop replay recording and log the view URL
+  if (session.replayId) {
+    try {
+      await kernel.browsers.replays.stop(session.replayId, {
+        id: session.kernelSessionId,
+      });
+      await kernel.browsers.replays.list(
+        session.kernelSessionId,
+      );
+    } catch (err) {
+      console.error('[Kernel] Failed to stop/list replays:', err);
+    }
+  }
+
+  // Close BrowserManager (disconnects Playwright from CDP)
+  try {
+    await session.browserManager.close();
+  } catch (err) {
+    console.error('[Kernel] Failed to close BrowserManager:', err);
+  }
+
+  // Delete from Kernel
+  try {
+    await kernel.browsers.deleteByID(session.kernelSessionId);
+  } catch (err: unknown) {
+    const error = err as { status?: number };
+    if (error.status !== 404) {
+      console.error('[Kernel] Failed to delete browser:', err);
+    }
+  }
+}
+
