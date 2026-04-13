@@ -64,7 +64,7 @@ export function SessionTimeoutModal({
     intervalRef.current = setInterval(() => {
       setRemaining((prev) => {
         if (prev <= 1) {
-          clearInterval(intervalRef.current!);
+          clearInterval(intervalRef.current ?? undefined);
           onEndSession();
           return 0;
         }
