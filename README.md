@@ -12,7 +12,13 @@ Built by [Nava Labs](https://www.navapbc.com/labs/ai-tools-public-benefits), a d
 
 Benefit navigators and caseworkers spend significant time manually searching multiple databases, navigating benefit portals, and filling out application forms on behalf of the families they serve. This tool uses generative AI to automate that repetitive, time-consuming work — so caseworkers can focus on the people in front of them.
 
-The [Form-Filling Assistant](https://www.navapbc.com/labs/caseworker-ai-tools/form-filling-assistant) is a  part of Nava Labs' broader [Caseworker Empowerment Toolkit](https://www.navapbc.com/labs/caseworker-ai-tools).
+The [Form-Filling Assistant](https://www.navapbc.com/labs/caseworker-ai-tools/form-filling-assistant) is a  part of Nava Labs' broader [Caseworker Empowerment Toolkit](https://www.navapbc.com/labs/caseworker-ai-tools). 
+
+**Initial development and piloting:**
+
+The Form-Filling Assistant was initially developed with funding from Google.org, in partnership with [Riverside County Children and Families Commission](https://rccfc.org/) and [Amplifi](https://www.amplifi.org/). [#] staff members in [XYZ] roles are testing the tool in a 4-month pilot period running February to June 2026, and Nava Labs is sharing findings from development and piloting in regular Demo Days:
+- [Developing a Form-Filling Assistant](https://www.navapbc.com/events/nava-labs-demo-day-5)
+- [Piloting a Form-Filling Assistant](https://www.navapbc.com/events/nava-labs-demo-day-7-piloting-a-form-filling-assistant)
 
 
 **Who this is for:**
