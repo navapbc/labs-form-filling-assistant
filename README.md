@@ -16,7 +16,7 @@ The [Form-Filling Assistant](https://www.navapbc.com/labs/caseworker-ai-tools/fo
 
 **Initial development and piloting:**
 
-The Form-Filling Assistant was initially developed with funding from Google.org, in partnership with [Riverside County Children and Families Commission](https://rccfc.org/) and [Amplifi](https://www.amplifi.org/). [#] staff members in [XYZ] roles are testing the tool in a 4-month pilot period running February to June 2026, and Nava Labs is sharing findings from development and piloting in regular Demo Days:
+The Form-Filling Assistant was initially developed with funding from Google.org, in partnership with [Riverside County Children and Families Commission](https://rccfc.org/) and [Amplifi](https://www.amplifi.org/). 20 staff members in public-facing roles are testing the tool in a 4-month pilot period running February to June 2026, and Nava Labs is sharing findings from development and piloting in regular Demo Days:
 - [Developing a Form-Filling Assistant](https://www.navapbc.com/events/nava-labs-demo-day-5)
 - [Piloting a Form-Filling Assistant](https://www.navapbc.com/events/nava-labs-demo-day-7-piloting-a-form-filling-assistant)
 
