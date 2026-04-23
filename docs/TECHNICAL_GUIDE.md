@@ -1,6 +1,6 @@
-# ASP Form-Filling Assistant — Technical Guide
+# Form-Filling Assistant — Technical Guide
 
-A guide for developers and technical contributors working with the ASP Form-Filling Assistant. This covers architecture, configuration, extending the application, and troubleshooting.
+A guide for developers and technical contributors working with the Form-Filling Assistant. This covers architecture, configuration, extending the application, and troubleshooting.
 
 ---
 
@@ -74,20 +74,19 @@ Next.js App (App Router)
 ## Project Structure
 
 ```
-client/
-  app/                    # Next.js App Router pages and API routes
-    (auth)/               # Login and registration pages
-    (chat)/               # Chat interface pages
-    api/                  # API routes (chat, browser, links, etc.)
-  components/             # React components (UI, chat, browser view)
-  lib/
-    ai/                   # AI model configuration and tools
-      tools/              # AI tool definitions (browser, client data, gap analysis)
-    db/                   # Database schema and queries (Drizzle)
-    kernel/               # Kernel.sh browser session management
-    models/               # External API clients (client database)
-  public/                 # Static assets
-  docs/                   # Documentation (you are here)
+app/                    # Next.js App Router pages and API routes
+  (auth)/               # Login and registration pages
+  (chat)/               # Chat interface pages
+  api/                  # API routes (chat, browser, links, etc.)
+components/             # React components (UI, chat, browser view)
+lib/
+  ai/                   # AI model configuration and tools
+    tools/              # AI tool definitions (browser, client data, gap analysis)
+  db/                   # Database schema and queries (Drizzle)
+  kernel/               # Kernel.sh browser session management
+  models/               # External API clients (client database)
+public/                 # Static assets
+docs/                   # Documentation (you are here)
 ```
 
 ---
