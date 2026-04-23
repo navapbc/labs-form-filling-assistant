@@ -58,7 +58,7 @@ There are two ways to begin:
 
 2. **Type a request** — Describe what form you need help filling out. Include the participant's ID, the program they're applying for, and the website URL.
 
-   Example: *"Help participant ID 123456 apply for WIC at https://www.ruhealth.org/appointments/apply-4-wic-form#"*
+   Example: *"Help participant ID 123456 apply for WIC at https://benefits.example.gov/apply"*
 
 ---
 
@@ -120,4 +120,4 @@ Scroll down in the sidebar to load more sessions. To delete a session, hover ove
 - **Watch the browser** — Follow along in the live browser view so you can catch any issues early.
 - **Respond to gap analysis** — When the assistant reports missing information, provide it promptly so the form can be completed accurately.
 - **Review before submitting** — Always check the filled form in the take control view before confirming submission.
-- **Report issues** — Send feedback to the Nava team inbox.
+- **Report issues** — Report problems to your administrator or open an issue in the project's repository.
