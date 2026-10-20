@@ -53,3 +53,6 @@ yarn-error.log*
 vertex-ai-credentials.json
 
 .claude/
+# vitest browser mode
+.vitest-attachments/
+__screenshots__/
