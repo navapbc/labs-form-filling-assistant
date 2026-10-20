@@ -50,7 +50,7 @@ function parsePartnerData(text: string): { participantData: any; taskText: strin
   const jsonData = match[1].trim();
   const taskText = match[2].trim();
 
-  let parsedData: unknown;
+  let parsedData: any;
   try {
     parsedData = JSON.parse(jsonData);
     parsedData.task = undefined;

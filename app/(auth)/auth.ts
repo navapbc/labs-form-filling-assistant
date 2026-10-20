@@ -65,7 +65,6 @@ export const {
           id: profile.sub,
           name: profile.name,
           email: profile.preferred_username || profile.email || profile.upn,
-          image: profile.picture,
           type: 'regular' as const,
         }
       }
